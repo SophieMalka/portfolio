@@ -1,0 +1,7 @@
+.contact {
+    background: linear-gradient(to top,rgba(23,153,43, 0.2),rgba(15,195,250, 0.1)),url(../../assets/pictures/common-bg.svg);
+    background-position: center;
+    height: 100vh;
+    max-height: 120rem;
+    position: relative;
+}
