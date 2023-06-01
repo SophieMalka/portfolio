@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 function Button() {
     return (
         <div className='button'>
-            <Link to='projects' smooth={true} duration={300}>Projets</Link>
+            <Link to='projects' smooth={true} duration={300} className='button-link'>Mes projets</Link>
         </div>
     )
 };
