@@ -1,10 +1,11 @@
 import './index.css';
 import { Link } from "react-scroll";
 
-function Button() {
+
+function Button({linkButton, contentButton}) {
     return (
         <div className='button'>
-            <Link to='projects' smooth={true} duration={300} className='button-link'>Mes projets</Link>
+            <Link to={linkButton} smooth={true} duration={300} className='button-link'>{contentButton}</Link>
         </div>
     )
 };
