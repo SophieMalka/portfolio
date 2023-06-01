@@ -1,5 +1,6 @@
 import './index.css';
 import { Link } from 'react-scroll';
+import Button from '../../components/button';
 
 function About() {
     return (
@@ -21,9 +22,11 @@ function About() {
                         <p>
                             Je suis désormais titulaire d'un <strong>titre RNCP de niveau V en tant que développeur web</strong> et ouverte aux propositions de collaboration. Si vous avez une opportunité qui correspond à mes compétences et expériences, n'hésitez pas à me <strong>contacter</strong>.
                         </p>
-                        <div className='home-button'>
-                            <Link to='contact' smooth={true} duration={300} className='btn btn-bg'>Contact</Link>
-                        </div>
+                        <Button
+                            className={'invers-button'}
+                            linkButton={'contact'}
+                            contentButton={'Contactez-moi'}
+                        />
                     </div>
                     <div className='about-content-skills'>
     

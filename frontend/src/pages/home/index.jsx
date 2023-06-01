@@ -15,6 +15,7 @@ function Home() {
                 </div>
                 <Stack />
                 <Button
+                    className={'button'}
                     linkButton={'projects'}
                     contentButton={'Voir mes réalisations'}
                 />
