@@ -1,29 +1,23 @@
 const sqlite3 = require('sqlite3').verbose();
 
+const db = new sqlite3.Database('database.sqlite');
+db.serialize(() => {
+  db.run('CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT)');
+});
+
 exports.login = (req, res, next) => {
-  const { nomUtilisateur, motDePasse } = req.body;
-
-  // Connexion à la base de données SQLite
-  const db = new sqlite3.Database('chemin_vers_votre_base_de_donnees.sqlite');
-
-  // Exécution de la requête pour récupérer les informations de l'utilisateur
-  const query = 'SELECT * FROM utilisateurs WHERE nom_utilisateur=? AND mot_de_passe=?';
-  db.get(query, [nomUtilisateur, motDePasse], (err, utilisateur) => {
-    // Fermeture de la base de données
-    db.close();
-
+  const { email, password } = req.body;
+  
+  db.get('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, row) => {
     if (err) {
-      console.error(err.message);
-      return res.status(500).json({ message: 'Erreur lors de l\'exécution de la requête' });
-    }
-
-    // Vérification si l'utilisateur existe dans la base de données
-    if (utilisateur) {
-      // L'utilisateur existe, retourner une réponse réussie
-      return res.status(200).json({ message: 'Connexion réussie' });
+      console.error(err);
+      res.status(500).send('Une erreur est survenue lors de la connexion.');
+    } else if (row) {
+      // Connexion réussie
+      res.status(200).send('Connexion réussie');
     } else {
-      // L'utilisateur n'existe pas, retourner une réponse d'échec
-      return res.status(401).json({ message: 'Identifiants invalides' });
+      // Identifiants invalides
+      res.status(401).send('Identifiants invalides');
     }
   });
-}
+};
