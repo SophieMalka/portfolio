@@ -53,7 +53,7 @@
 .about-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 10rem;
+    grid-gap: 4rem;
     margin: 0 60px;
 }
 
@@ -65,7 +65,7 @@
     color: #666;
 }
 
-.about-content-me, .about-content-exp p {
+.about-content-me p, .about-content-exp li {
     font-size: 1.1rem;
     color: #666;
     max-width: 60rem;
@@ -74,10 +74,17 @@
     text-align: justify;
 }
 
+.about-content-exp li {
+    margin-bottom: 0;
+    line-height: 1.2;
+    text-align: left;
+}
+
 .about-content-exp h4 {
     font-size: 1.3rem;
     color: #666;
     margin-bottom: 3px;
+    margin-top: 19px;
 }
 
 .exp-location {
