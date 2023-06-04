@@ -1,6 +1,6 @@
 .home {
-    height: 100vh;
-    max-height: 120rem;
+    min-height: 100vh;
+    height: fit-content;
     position: relative;
 }
 
