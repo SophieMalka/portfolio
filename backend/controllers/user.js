@@ -16,7 +16,6 @@ exports.login = (req, res, next) => {
     } else if (row) {
       // Connexion réussie
       res.status(200).json({
-        userId: user._id, 
         token: jwt.sign(
           process.env.TOKEN,
           { expiresIn: '4h' }
