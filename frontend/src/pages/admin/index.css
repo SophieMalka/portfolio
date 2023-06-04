@@ -1,0 +1,58 @@
+#admin {
+    min-height: 100vh;
+    height: fit-content;
+    position: relative;
+}
+
+.admin-connect {
+    position: absolute;
+    height: 70vh;
+    width: 40vw;
+    background-color: #ffffff86;
+    top: 15%;
+    left: 30%;
+    border-radius: 20px;
+}
+
+.admin-title {
+    display: block;
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 3.5rem;
+    position: relative;
+    color: #111;
+}
+
+.admin-title::after {
+    content: '';
+    position: absolute;
+    top: calc(100% + 1.5rem);
+    height: 5px;
+    width: 3rem;
+    background: #591BC5;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+}
+
+button {
+    width: fit-content;
+    margin-top: 50px;
+    color: #591BC5;
+    font-size: 17px;
+    border:1px solid #EFEEF5;
+    font-weight: 500;
+    background: #EFEEF5;
+    border-radius: 20px;
+    padding: 15px 30px;
+    cursor:pointer;
+    transition: .3s;
+    display: flex;
+    justify-content: center;
+}
+
+button:hover {
+    border-radius: 0;
+}
