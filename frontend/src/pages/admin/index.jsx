@@ -8,11 +8,11 @@ function Admin() {
             <Background />
             <div className='admin-connect'>
                 <h1 className='admin-title'> Connexion</h1>
-                <form>
-                    <label>Adresse email</label>
-                    <input></input>
-                    <label>Mot de passe</label>
-                    <input></input>
+                <form className='form-connect'>
+                    <label for='email'>Adresse email</label>
+                    <input type='email'></input>
+                    <label for='password'>Mot de passe</label>
+                    <input type='password'></input>
                     <button type='submit'>Se connecter</button>
                 </form>
             </div>

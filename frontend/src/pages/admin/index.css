@@ -37,6 +37,33 @@
     border-radius: 5px;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+input {
+    width: 60%;
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 15px 30px;
+    border:1px solid #EFEEF5;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+input:focus-visible,
+button:focus-visible {
+    outline:1px solid #591BC5;
+}
+
 button {
     width: fit-content;
     margin-top: 50px;
