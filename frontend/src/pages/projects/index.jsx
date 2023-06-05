@@ -1,5 +1,4 @@
 import './index.css';
-import React from 'react';
 
 function Projects(props) {
   if (props.page === 'admin') {
