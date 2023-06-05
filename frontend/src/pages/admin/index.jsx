@@ -15,13 +15,13 @@ function Admin() {
         body: JSON.stringify(Object.fromEntries(formData.entries())), // Convertir les données du formulaire en JSON
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}` // Inclure le token JWT dans l'en-tête
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}` // Inclure le token JWT dans l'en-tête
         }
       });
 
       if (response.status === 200) {
         const { token } = await response.json(); // Récupérer le token de la réponse
-        localStorage.setItem('token', token);
+        sessionStorage.setItem('token', token);
         window.location.replace('/admin2103/projects');
       } else {
         loginForm.email.value = '';
