@@ -10,7 +10,7 @@ function Landing() {
             <Header />
             <Home />
             <About />
-            <Projects />
+            <Projects path='/projects'/>
             <Contact />
         </div>
     )
