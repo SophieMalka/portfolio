@@ -1,27 +1,25 @@
 import './index.css';
 
 function AddProjects() {
-  const sendData = () => {
-    const projectForm = document.querySelector('form');
-    const formData = new FormData(projectForm);
+function handleSubmit() {
+  const formData = new FormData();
+  formData.append('imgUrl', document.getElementById('imgUrl').files[0]);
+  formData.append('title', document.getElementById('title').value);
+  formData.append('description', document.getElementById('description').value);
+  formData.append('link', document.getElementById('link').value);
 
-    fetch('http://localhost:3001/api/project', {
-      method: 'POST',
-      body: JSON.stringify(Object.fromEntries(formData.entries())),
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}` // Inclure le token JWT dans l'en-tête
-        }
+  fetch('http://localhost:3001/api/project', {
+    method: 'POST',
+    body: formData,
+  })
+    .then(response => {
+      // Traitement des données après l'envoi réussi
+      console.log(response)
     })
-      .then(response => response.json())
-      .then(data => {
-      console.log(data)
-      })
-      .catch(error => {
-      console.log(error)
-    })
-    
-  }
+    .catch(error => {
+      // Gestion des erreurs lors de l'envoi
+    });
+}
   if (sessionStorage.getItem("token")) {
     return (
       <section id='projects' className='projects'>
@@ -38,7 +36,7 @@ function AddProjects() {
             <input type='text' name='description' id='description'></input>
             <label htmlFor='link'>Lien</label>
             <input type='text' name='link' id='link'></input>
-            <button type='button' onClick={sendData}>Envoyer</button>
+            <button type='button' onClick={handleSubmit}>Envoyer</button>
           </form>
         </div>
       </section>

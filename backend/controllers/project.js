@@ -1,4 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
+const multer = require('multer');
 
 const db = new sqlite3.Database('database.sqlite');
 db.serialize(() => {
@@ -17,17 +18,20 @@ exports.getAllProjects = (req, res, next) => {
 };
 
 exports.createProject = (req, res, next) => {
-  const imgUrl = `${req.protocol}://images/${req.body.imgUrl}`;
-  const title = req.body.title;
-  const description = req.body.description;
-  const link = req.body.link;
+    const { title, description, link } = req.body;
+    const imgUrl = req.file.filename; // Obtenez le nom du fichier téléchargé
 
-  db.run('INSERT INTO projects (imgUrl, title, description, link) VALUES (?, ?, ?, ?)', [imgUrl, title, description, link], function (err) {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Une erreur est survenue lors de l\'ajout du projet' });
-    } else {
-      res.json({ message: 'Le projet a été ajouté avec succès', projectId: this.lastID });
-    }
-  });
-};
+   db.run('INSERT INTO projects (imgUrl, title, description, link) VALUES (?, ?, ?, ?)',
+    [imgUrl, title, description, link],
+    function (err) {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Une erreur est survenue lors de la création du projet' });
+      } else {
+        res.json({ message: 'Projet créé avec succès' });
+      }
+    });
+  }
+;
+
+  
