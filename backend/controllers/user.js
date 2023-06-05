@@ -8,19 +8,22 @@ db.serialize(() => {
 
 exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  
-  db.get('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, row) => {
+  console.log(req.body)
+
+  db.get('SELECT * FROM users WHERE email = ?', [email], (err, row) => {
     if (err) {
       console.error(err);
       res.status(500).send('Une erreur est survenue lors de la connexion.');
     } else if (row) {
-      // Connexion réussie
-      res.status(200).json({
-        token: jwt.sign(
-          process.env.TOKEN,
-          { expiresIn: '4h' }
-        )
-      });
+      if (password === row.password) {
+        // Connexion réussie
+        return res.status(200).json({
+          token: jwt.sign(process.env.TOKEN_SECRET, { expiresIn: '4h' })
+        });
+      } else {
+        // Mot de passe incorrect
+        res.status(401).json({ message: 'Identifiant et/ou mot de passe incorrect' });
+      }
     } else {
       // Identifiants invalides
       res.status(401).json({ message: 'Identifiant et/ou mot de passe incorrect' });

@@ -5,13 +5,31 @@ import { API_ROUTES } from '../../utils/constants';
 function Admin() {
   const redirect = async (event) => {
     event.preventDefault();
+  
     const loginForm = document.querySelector('form');
-    if (localStorage.getItem('token')) {
-      window.location.replace('/admin2103/projects');
-    } else {
-      loginForm.email.value = '';
-      loginForm.password.value = '';
-      alert("Erreur dans l'identifiant ou le mot de passe");
+    const formData = new FormData(loginForm); // Obtenir les données du formulaire
+  
+    try {
+      const response = await fetch("http://localhost:3001/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(Object.fromEntries(formData.entries())), // Convertir les données du formulaire en JSON
+        headers: {
+          //'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}` // Inclure le token JWT dans l'en-tête
+        }
+      });
+
+      if (response.status === 200) {
+        const { token } = await response.json(); // Récupérer le token de la réponse
+        localStorage.setItem('token', token);
+        window.location.replace('/admin2103/projects');
+      } else {
+        loginForm.email.value = '';
+        loginForm.password.value = '';
+        alert("Erreur dans l'identifiant ou le mot de passe");
+      }
+    } catch (error) {
+      console.error("Une erreur s'est produite lors de la connexion :", error);
     }
   };
 
