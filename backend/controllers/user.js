@@ -18,7 +18,7 @@ exports.login = (req, res, next) => {
       if (password === row.password) {
         // Connexion réussie
         return res.status(200).json({
-          token: jwt.sign(process.env.TOKEN_SECRET, { expiresIn: '4h' })
+          token: jwt.sign({ userId: row.id }, process.env.TOKEN_SECRET, { expiresIn: '4h' })
         });
       } else {
         // Mot de passe incorrect

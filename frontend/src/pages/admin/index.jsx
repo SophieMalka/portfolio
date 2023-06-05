@@ -14,7 +14,7 @@ function Admin() {
         method: "POST",
         body: JSON.stringify(Object.fromEntries(formData.entries())), // Convertir les données du formulaire en JSON
         headers: {
-          //'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}` // Inclure le token JWT dans l'en-tête
         }
       });
