@@ -5,17 +5,18 @@ require('dotenv').config();
 const { cors } = require('./middlewares/cors');
 const multer = require('./middlewares/multer');
 
-const userCtrl = require('./controllers/user');
 const projectCtrl = require('./controllers/project');
+
+const userRoutes = require('./routes/user');
+const projectRoutes = require('./routes/project');
 
 const app = express();
 
 app.use(express.json());
 app.use(cors);
 
-app.post('/api/auth/login', userCtrl.login);
-app.get('/api/projects', projectCtrl.getAllProjects);
-app.post('/api/project', multer, projectCtrl.createProject);
+app.use('/api/auth', userRoutes);
+app.use('/api/projects', projectRoutes);
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

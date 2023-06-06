@@ -8,7 +8,7 @@ function handleSubmit() {
   formData.append('description', document.getElementById('description').value);
   formData.append('link', document.getElementById('link').value);
 
-  fetch('http://localhost:3001/api/project', {
+  fetch('http://localhost:3001/api/projects', {
     method: 'POST',
     body: formData,
   })
