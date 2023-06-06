@@ -19,7 +19,7 @@ exports.getAllProjects = (req, res, next) => {
 
 exports.createProject = (req, res, next) => {
     const { title, description, link } = req.body;
-    const imgUrl = req.file.filename; // Obtenez le nom du fichier téléchargé
+    const imgUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`; // Obtenez le nom du fichier téléchargé
 
    db.run('INSERT INTO projects (imgUrl, title, description, link) VALUES (?, ?, ?, ?)',
     [imgUrl, title, description, link],
