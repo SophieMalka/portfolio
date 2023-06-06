@@ -1,4 +1,5 @@
 import './index.css';
+import { Link } from 'react-router-dom';
 
 function Card({image, title, description, link}) {
     return (
@@ -6,7 +7,7 @@ function Card({image, title, description, link}) {
             <img src={image} alt={title} />
             <h3>{title}</h3>
             <p>{description}</p>
-            <span>{link}</span>
+            <Link to={link} className='button'>Lien du projet</Link>
         </div>
     )
 };

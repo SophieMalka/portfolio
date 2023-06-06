@@ -1,9 +1,44 @@
 .card-project {
     display: flex;
     flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.363);
+    padding: 20px;
+    border-radius: 20px;
+    width: 33%;
+    align-items: center;
 }
 
 .card-project img {
-    width: 50px;
+    width: 90%;
     height: auto;
+    border: 1px solid #591BC5;
+}
+
+.card-project p {
+    text-align: center;
+}
+
+.button {
+  width: fit-content;
+  margin-top: 50px;
+  color: #EFEEF5;
+  font-size: 17px;
+  border: 1px solid #591BC5;
+  font-weight: 500;
+  background: #591BC5;
+  border-radius: 20px;
+  padding: 15px 30px;
+  cursor:pointer;
+  transition: .3s;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.button:hover{
+  border-radius: 0;
+}
+
+.button:visited{
+    color: #EFEEF5;
 }

@@ -49,3 +49,12 @@
     margin: auto;
     line-height: 1.6;
 }
+
+.gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    margin: auto 30px;
+}
