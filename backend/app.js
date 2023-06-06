@@ -2,14 +2,10 @@ const express = require('express');
 const path = require('path');
 require('dotenv').config();
 
-const { cors } = require('./middlewares/cors');
-const multer = require('./middlewares/multer');
-
-const projectCtrl = require('./controllers/project');
-
 const userRoutes = require('./routes/user');
 const projectRoutes = require('./routes/project');
 
+const { cors } = require('./middlewares/cors');
 const app = express();
 
 app.use(express.json());
