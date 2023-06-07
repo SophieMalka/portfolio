@@ -6,7 +6,7 @@ import Card from '../../components/card';
 
 function AddProjects() {
   const [projects, setProjects] = useState([]);
-  const [updateProjects, setUpdateProjects] = useState(false);
+  const [getProjects, setgetProjects] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function AddProjects() {
       .then(response => response.json())
       .then(data => setProjects(data))
       .catch(error => console.error('Error fetching projects:', error));
-  }, [updateProjects]);
+  }, [getProjects]);
 
   function openModal() {
     const form = document.querySelector('form');
@@ -31,7 +31,7 @@ function AddProjects() {
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
 
-    setUpdateProjects(true);
+    setgetProjects(true);
   }
 
   function sendData() {
@@ -81,7 +81,7 @@ function AddProjects() {
       });
   };
 
-  const updateProject = (id) => {
+  const getProject = (id) => {
     fetch(`http://localhost:3001/api/projects/${id}`)
       .then(response => {
         if (response.ok) {
@@ -106,7 +106,7 @@ function AddProjects() {
         image={project.imgUrl}
         title={project.title}
         description={project.description}
-        updateFunction={() => updateProject(project.id)}
+        updateFunction={() => getProject(project.id)}
         deleteFunction={() => deleteProject(project.id)}
         page="admin"
       />
