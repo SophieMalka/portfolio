@@ -30,7 +30,6 @@ function AddProjects() {
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
-
     setGetProjects(true);
   }
 
@@ -52,7 +51,6 @@ function AddProjects() {
           alert('Projet mis à jour !');
           setSelectedProject(null);
           closeModal();
-          setGetProjects(true); // Mettre à jour les projets après la modification
         })
         .catch(error => {
           console.log(error);
@@ -67,7 +65,6 @@ function AddProjects() {
           console.log(response);
           alert('Projet créé !');
           closeModal();
-          setGetProjects(true); // Mettre à jour les projets après la création
         })
         .catch(error => {
           console.log(error);
