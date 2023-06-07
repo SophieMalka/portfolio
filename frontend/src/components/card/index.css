@@ -18,7 +18,9 @@
     text-align: center;
 }
 
-.button-card {
+.button-card,
+.button-card-update,
+.button-card-delete {
   width: fit-content;
   margin-top: 50px;
   color: #EFEEF5;
@@ -35,10 +37,20 @@
   text-decoration: none;
 }
 
-.button-card:hover{
+.button-card:hover,
+.button-card-update:hover,
+.button-card-delete:hover{
   border-radius: 0;
 }
 
-.button-card:visited{
+.button-card:visited,
+.button-card-update:visited,
+.button-card-delete:visited{
     color: #EFEEF5;
+}
+
+.list-button-card {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
 }

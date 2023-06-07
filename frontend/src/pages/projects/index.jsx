@@ -15,12 +15,13 @@ function Projects() {
   const displayProjects = () => {
     return projects.map(project => (
       <Card
+        page={"visit"}
         key={project.id}
         image={project.imgUrl}
         title={project.title}
         description={project.description}
         link={project.link}
-        titleLink='Lien du projet'
+        
       />
     ));
   };
