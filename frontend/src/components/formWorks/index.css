@@ -1,0 +1,46 @@
+.form-add-work {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-add-work label {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.form-add-work input {
+    width: 60%;
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 15px 30px;
+    border:1px solid #EFEEF5;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.form-add-work button {
+      width: fit-content;
+  margin-top: 50px;
+  color: #591BC5;
+  font-size: 17px;
+  border:1px solid #EFEEF5;
+  font-weight: 500;
+  background: #EFEEF5;
+  border-radius: 20px;
+  padding: 15px 30px;
+  cursor:pointer;
+  transition: .3s;
+  display: flex;
+  justify-content: center;
+}
+
+.form-add-work button:hover {
+    border-radius: 0;
+}
+
+.form-add-work input:focus-visible,
+.form-add-work button:focus-visible {
+    outline:1px solid #591BC5;
+}
