@@ -37,19 +37,19 @@
     border-radius: 5px;
 }
 
-form {
+.form-connect {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-label {
+.label-form-connect {
     margin-top: 20px;
     font-size: 1.1rem;
     color: #666;
 }
 
-input {
+.input-form-connect {
     width: 60%;
     margin-top: 20px;
     border-radius: 20px;
@@ -59,12 +59,12 @@ input {
     color: #666;
 }
 
-input:focus-visible,
-button:focus-visible {
+.input-form-connect:focus-visible,
+.button-form-connect:focus-visible {
     outline:1px solid #591BC5;
 }
 
-button {
+.button-form-connect {
     width: fit-content;
     margin-top: 50px;
     color: #591BC5;
@@ -80,6 +80,6 @@ button {
     justify-content: center;
 }
 
-button:hover {
+.button-form-connect:hover {
     border-radius: 0;
 }

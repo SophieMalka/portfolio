@@ -39,11 +39,11 @@ function Admin() {
       <div className="admin-connect">
         <h1 className="admin-title"> Connexion</h1>
         <form className="form-connect" action={API_ROUTES.LOGIN} method="POST">
-          <label htmlFor="email">Adresse email</label>
-          <input type="email" id="email" name="email" required />
-          <label htmlFor="password">Mot de passe</label>
-          <input type="password" id="password" name="password" required />
-          <button type="submit" onClick={redirect}>
+          <label className='label-form-connect' htmlFor="email">Adresse email</label>
+          <input className='input-form-connect' type="email" id="email" name="email" required />
+          <label className='label-form-connect' htmlFor="password">Mot de passe</label>
+          <input className='input-form-connect' type="password" id="password" name="password" required />
+          <button className='button-form-connect' type="submit" onClick={redirect}>
             Se connecter
           </button>
         </form>
