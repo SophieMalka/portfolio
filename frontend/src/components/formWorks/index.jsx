@@ -4,15 +4,17 @@ import './index.css';
 function FormWorks({ classForm, functionForm, selectedProject }) {
   const [selectedImageURL, setSelectedImageURL] = useState(null);
 
-  useEffect(() => {
-    if (selectedProject) {
-      document.getElementById('title').value = selectedProject.title;
-      document.getElementById('description').value = selectedProject.description;
-      document.getElementById('link').value = selectedProject.link;
-    } else {
-      resetForm();
-    }
-  }, [selectedProject]);
+useEffect(() => {
+  if (selectedProject) {
+    document.getElementById('title').value = selectedProject.title;
+    document.getElementById('description').value = selectedProject.description;
+    document.getElementById('link').value = selectedProject.link;
+    setSelectedImageURL(selectedProject.imgUrl); // Ajoutez cette ligne pour définir l'URL de l'image sélectionnée
+  } else {
+    resetForm();
+  }
+}, [selectedProject]);
+
 
   function resetForm() {
     document.getElementById('imgUrl').value = '';
@@ -35,7 +37,7 @@ function FormWorks({ classForm, functionForm, selectedProject }) {
       <form className='form-add-work'>
         <label htmlFor='imgUrl'>Image</label>
         <input type='file' name='imgUrl' id='imgUrl' onChange={handleImageChange}></input>
-        {selectedImageURL && <img src={selectedImageURL} alt='Selected' className='selected-image' />}
+        {selectedImageURL && (<img src={selectedImageURL} alt='Selected' className='selected-image' />)}
         <label htmlFor='title'>Titre</label>
         <input type='text' name='title' id='title'></input>
         <label htmlFor='description'>Description</label>

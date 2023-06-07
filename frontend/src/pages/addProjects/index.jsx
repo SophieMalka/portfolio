@@ -128,16 +128,18 @@ function AddProjects() {
             Ajouter un projet
           </button>
           <Modal
-            contentModal={
-              <FormWorks
-                classForm={'form-add-word'}
-                functionForm={sendData}
-                selectedProject={selectedProject}
-              />
-            }
-            onClose={closeModal}
-            onResetSelectedProject={resetSelectedProject}
-          />
+  contentModal={
+    <FormWorks
+      classForm={'form-add-word'}
+      functionForm={sendData}
+      selectedProject={selectedProject}
+      selectedImageURL={selectedProject ? selectedProject.imgUrl : null}
+    />
+  }
+  onClose={closeModal}
+  onResetSelectedProject={resetSelectedProject}
+/>
+
           <div className='gallery-projects'>{displayProjects()}</div>
         </div>
       </section>
