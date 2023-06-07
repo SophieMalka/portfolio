@@ -1,7 +1,7 @@
 import './index.css';
 import { Link } from 'react-router-dom';
 
-function Card({ image, title, description, link, updateLink, deleteLink, page }) {
+function Card({ projectId, image, title, description, link, updateFunction, deleteFunction, page }) {
     if (page === "admin") {
         return (
             <div className='card-project-admin'>
@@ -13,8 +13,8 @@ function Card({ image, title, description, link, updateLink, deleteLink, page })
                     </div>
                 </div>
                 <div className='list-button-card'>
-                    <Link to={updateLink} className='button-card-update'>Modifier</Link>
-                    <Link to={deleteLink} className='button-card-delete'>Supprimer</Link>
+                    <button id={projectId} className='button-card-update' onClick={updateFunction}>Modifier</button>
+                    <button id={projectId} className='button-card-delete' onClick={deleteFunction}>Supprimer</button>
                 </div>
             </div>
         );

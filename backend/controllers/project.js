@@ -1,4 +1,5 @@
 const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
 
 const db = new sqlite3.Database('database.sqlite');
 db.serialize(() => {
@@ -32,4 +33,50 @@ exports.createProject = (req, res, next) => {
     });
 };
 
-  
+exports.getOneProject = (req, res, next) => {
+  const projectId = req.params.id; // Récupère l'identifiant du projet depuis les paramètres de la requête
+
+  db.get('SELECT * FROM projects WHERE id = ?', projectId, (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Une erreur est survenue lors de la récupération du projet' });
+    } else if (row) {
+      res.json(row);
+    } else {
+      res.status(404).json({ error: 'Projet non trouvé' });
+    }
+  });
+};
+
+exports.deleteProject = (req, res, next) => {
+  const projectId = req.params.id;
+
+  db.get('SELECT imgUrl FROM projects WHERE id = ?', projectId, (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Une erreur est survenue lors de la suppression du projet' });
+    } else if (row) {
+      const imgUrl = row.imgUrl;
+      const fileName = imgUrl.split('/').pop();
+      const filePath = `images/${fileName}`;
+
+      db.run('DELETE FROM projects WHERE id = ?', projectId, (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Une erreur est survenue lors de la suppression du projet' });
+        } else {
+          fs.unlink(filePath, (err) => {
+            if (err) {
+              console.error(err);
+              res.status(500).json({ error: 'Une erreur est survenue lors de la suppression du fichier' });
+            } else {
+              res.json({ message: 'Projet supprimé avec succès' });
+            }
+          });
+        }
+      });
+    } else {
+      res.status(404).json({ error: 'Projet non trouvé' });
+    }
+  });
+};
