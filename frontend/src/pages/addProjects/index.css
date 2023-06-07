@@ -6,7 +6,7 @@
 }
 
 .projects-container {
-    padding: 6rem 0;
+    padding: 2rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,4 +46,23 @@
     flex-wrap: wrap;
     row-gap: 20px;
     justify-content: space-around;
+}
+
+.open-modal {
+    width: fit-content;
+  color: #591BC5;
+  font-size: 17px;
+  border:1px solid #591BC5;
+  font-weight: 500;
+  background: #EFEEF5;
+  border-radius: 20px;
+  padding: 15px 30px;
+  cursor:pointer;
+  transition: .3s;
+  display: flex;
+  justify-content: center;
+}
+
+.open-modal:hover {
+    border-radius: 0;
 }
