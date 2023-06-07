@@ -80,3 +80,34 @@ exports.deleteProject = (req, res, next) => {
     }
   });
 };
+
+exports.updateProject = (req, res, next) => {
+  const projectId = req.params.id;
+  const { title, description, link } = req.body;
+
+  db.get('SELECT imgUrl FROM projects WHERE id = ?', projectId, (err, row) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du projet' });
+    } else if (row) {
+      const imgUrl = row.imgUrl;
+      const fileName = imgUrl.split('/').pop();
+      const filePath = `images/${fileName}`;
+
+      db.run(
+        'UPDATE projects SET title = ?, description = ?, link = ? WHERE id = ?',
+        [title, description, link, projectId],
+        (err) => {
+          if (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du projet' });
+          } else {
+            res.json({ message: 'Projet mis à jour avec succès' });
+          }
+        }
+      );
+    } else {
+      res.status(404).json({ error: 'Projet non trouvé' });
+    }
+  });
+};
