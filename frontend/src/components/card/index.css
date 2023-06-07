@@ -18,7 +18,7 @@
     text-align: center;
 }
 
-.button {
+.button-card {
   width: fit-content;
   margin-top: 50px;
   color: #EFEEF5;
@@ -35,10 +35,10 @@
   text-decoration: none;
 }
 
-.button:hover{
+.button-card:hover{
   border-radius: 0;
 }
 
-.button:visited{
+.button-card:visited{
     color: #EFEEF5;
 }
