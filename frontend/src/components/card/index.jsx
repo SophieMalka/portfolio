@@ -1,13 +1,13 @@
 import './index.css';
 import { Link } from 'react-router-dom';
 
-function Card({image, title, description, link}) {
+function Card({image, title, description, link, titleLink}) {
     return (
         <div className='card-project'>
             <img src={image} alt={title} />
             <h3>{title}</h3>
             <p>{description}</p>
-            <Link to={link} className='button-card'>Lien du projet</Link>
+            <Link to={link} className='button-card'>{titleLink}</Link>
         </div>
     )
 };

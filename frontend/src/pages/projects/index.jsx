@@ -12,8 +12,6 @@ function Projects() {
       .catch(error => console.error('Error fetching projects:', error));
   }, []);
 
-
-
   const displayProjects = () => {
     return projects.map(project => (
       <Card
@@ -22,6 +20,7 @@ function Projects() {
         title={project.title}
         description={project.description}
         link={project.link}
+        titleLink='Lien du projet'
       />
     ));
   };
