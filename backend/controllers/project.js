@@ -83,11 +83,19 @@ exports.deleteProject = (req, res, next) => {
 
 exports.updateProject = (req, res, next) => {
   const projectId = req.params.id;
-  const { title, description, link, imgUrl } = req.body;
+  const { title, description, link } = req.body;
+  let imgUrl = null;
+  let imgData = null;
 
-  // Vérifier s'il y a au moins un champ modifié
+  if (req.file) {
+    imgData = fs.readFileSync(req.file.path);
+    imgUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+  }
+
+  // Vérifier si des champs ont été modifiés
   if (!title && !description && !link && !imgUrl) {
-    return res.status(400).json({ error: 'Aucun champ modifié' });
+    res.status(400).json({ error: 'Aucun champ modifié' });
+    return;
   }
 
   // Construire la requête SQL de mise à jour en fonction des champs modifiés
@@ -121,15 +129,40 @@ exports.updateProject = (req, res, next) => {
   updateQuery += ' WHERE id = ?';
   params.push(projectId);
 
-  db.run(updateQuery, params, function (err) {
+  db.get('SELECT imgUrl FROM projects WHERE id = ?', projectId, (err, row) => {
     if (err) {
       console.error(err);
-      res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du projet' });
-    } else if (this.changes === 0) {
-      res.status(404).json({ error: 'Projet non trouvé' });
+      res.status(500).json({ error: 'Une erreur est survenue lors de la récupération du projet' });
+    } else if (row) {
+      const oldImgUrl = row.imgUrl;
+
+      db.run(updateQuery, params, function (err) {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du projet' });
+        } else if (this.changes === 0) {
+          res.status(404).json({ error: 'Projet non trouvé' });
+        } else {
+          if (imgUrl && oldImgUrl) {
+            // Supprimer l'ancienne image du projet
+            const oldFileName = oldImgUrl.split('/').pop();
+            const oldFilePath = `images/${oldFileName}`;
+
+            fs.unlink(oldFilePath, (err) => {
+              if (err) {
+                console.error(err);
+                res.status(500).json({ error: 'Une erreur est survenue lors de la suppression de l\'ancien fichier' });
+              } else {
+                res.json({ message: 'Projet mis à jour avec succès' });
+              }
+            });
+          } else {
+            res.json({ message: 'Projet mis à jour avec succès' });
+          }
+        }
+      });
     } else {
-      res.json({ message: 'Projet mis à jour avec succès' });
+      res.status(404).json({ error: 'Projet non trouvé' });
     }
   });
 };
-
