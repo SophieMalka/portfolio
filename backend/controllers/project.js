@@ -83,31 +83,53 @@ exports.deleteProject = (req, res, next) => {
 
 exports.updateProject = (req, res, next) => {
   const projectId = req.params.id;
-  const { title, description, link } = req.body;
+  const { title, description, link, imgUrl } = req.body;
 
-  db.get('SELECT imgUrl FROM projects WHERE id = ?', projectId, (err, row) => {
+  // Vérifier s'il y a au moins un champ modifié
+  if (!title && !description && !link && !imgUrl) {
+    return res.status(400).json({ error: 'Aucun champ modifié' });
+  }
+
+  // Construire la requête SQL de mise à jour en fonction des champs modifiés
+  let updateQuery = 'UPDATE projects SET ';
+  let params = [];
+
+  if (title) {
+    updateQuery += 'title = ?, ';
+    params.push(title);
+  }
+
+  if (description) {
+    updateQuery += 'description = ?, ';
+    params.push(description);
+  }
+
+  if (link) {
+    updateQuery += 'link = ?, ';
+    params.push(link);
+  }
+
+  if (imgUrl) {
+    updateQuery += 'imgUrl = ?, ';
+    params.push(imgUrl);
+  }
+
+  // Supprimer la virgule et l'espace finaux de la requête SQL
+  updateQuery = updateQuery.slice(0, -2);
+
+  // Ajouter la clause WHERE pour identifier le projet à mettre à jour
+  updateQuery += ' WHERE id = ?';
+  params.push(projectId);
+
+  db.run(updateQuery, params, function (err) {
     if (err) {
       console.error(err);
       res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du projet' });
-    } else if (row) {
-      const imgUrl = row.imgUrl;
-      const fileName = imgUrl.split('/').pop();
-      const filePath = `images/${fileName}`;
-
-      db.run(
-        'UPDATE projects SET title = ?, description = ?, link = ? WHERE id = ?',
-        [title, description, link, projectId],
-        (err) => {
-          if (err) {
-            console.error(err);
-            res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du projet' });
-          } else {
-            res.json({ message: 'Projet mis à jour avec succès' });
-          }
-        }
-      );
-    } else {
+    } else if (this.changes === 0) {
       res.status(404).json({ error: 'Projet non trouvé' });
+    } else {
+      res.json({ message: 'Projet mis à jour avec succès' });
     }
   });
 };
+
