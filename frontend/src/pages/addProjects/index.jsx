@@ -14,7 +14,7 @@ function AddProjects() {
       .then(response => response.json())
       .then(data => setProjects(data))
       .catch(error => console.error('Error fetching projects:', error));
-  }, [getProjects]);
+  }, [getProjects, selectedProject]);
 
   function openModal() {
     const form = document.querySelector('form');
@@ -52,6 +52,7 @@ function AddProjects() {
           alert('Projet mis à jour !');
           setSelectedProject(null);
           closeModal();
+          setGetProjects(true); // Mettre à jour les projets après la modification
         })
         .catch(error => {
           console.log(error);
@@ -66,6 +67,7 @@ function AddProjects() {
           console.log(response);
           alert('Projet créé !');
           closeModal();
+          setGetProjects(true); // Mettre à jour les projets après la création
         })
         .catch(error => {
           console.log(error);
