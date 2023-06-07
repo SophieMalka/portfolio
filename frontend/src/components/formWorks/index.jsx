@@ -3,24 +3,29 @@ import './index.css';
 
 function FormWorks({ classForm, functionForm, selectedProject }) {
   const [selectedImageURL, setSelectedImageURL] = useState(null);
+  const [formData, setFormData] = useState({
+    imgUrl: '',
+    title: '',
+    description: '',
+    link: ''
+  });
 
-useEffect(() => {
-  if (selectedProject) {
-    document.getElementById('title').value = selectedProject.title;
-    document.getElementById('description').value = selectedProject.description;
-    document.getElementById('link').value = selectedProject.link;
-    setSelectedImageURL(selectedProject.imgUrl); // Ajoutez cette ligne pour définir l'URL de l'image sélectionnée
-  } else {
-    resetForm();
-  }
-}, [selectedProject]);
-
+  useEffect(() => {
+    if (selectedProject) {
+      setFormData(selectedProject);
+      setSelectedImageURL(selectedProject.imgUrl);
+    } else {
+      resetForm();
+    }
+  }, [selectedProject]);
 
   function resetForm() {
-    document.getElementById('imgUrl').value = '';
-    document.getElementById('title').value = '';
-    document.getElementById('description').value = '';
-    document.getElementById('link').value = '';
+    setFormData({
+      imgUrl: '',
+      title: '',
+      description: '',
+      link: ''
+    });
     setSelectedImageURL(null);
   }
 
@@ -29,7 +34,23 @@ useEffect(() => {
     if (file) {
       const imageURL = URL.createObjectURL(file);
       setSelectedImageURL(imageURL);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        imgUrl: file
+      }));
     }
+  }
+
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value
+    }));
+  }
+
+  function sendData() {
+    functionForm(formData);
   }
 
   return (
@@ -37,14 +58,34 @@ useEffect(() => {
       <form className='form-add-work'>
         <label htmlFor='imgUrl'>Image</label>
         <input type='file' name='imgUrl' id='imgUrl' onChange={handleImageChange}></input>
-        {selectedImageURL && (<img src={selectedImageURL} alt='Selected' className='selected-image' />)}
+        {selectedImageURL && <img src={selectedImageURL} alt='Selected' className='selected-image' />}
         <label htmlFor='title'>Titre</label>
-        <input type='text' name='title' id='title'></input>
+        <input
+          type='text'
+          name='title'
+          id='title'
+          value={formData.title}
+          onChange={handleInputChange}
+        ></input>
         <label htmlFor='description'>Description</label>
-        <input type='text' name='description' id='description'></input>
+        <input
+          type='text'
+          name='description'
+          id='description'
+          value={formData.description}
+          onChange={handleInputChange}
+        ></input>
         <label htmlFor='link'>Lien</label>
-        <input type='text' name='link' id='link'></input>
-        <button type='button' onClick={functionForm}>Envoyer</button>
+        <input
+          type='text'
+          name='link'
+          id='link'
+          value={formData.link}
+          onChange={handleInputChange}
+        ></input>
+        <button type='button' onClick={sendData}>
+          Envoyer
+        </button>
       </form>
     </section>
   );

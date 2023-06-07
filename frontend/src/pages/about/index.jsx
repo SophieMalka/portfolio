@@ -1,5 +1,4 @@
 import './index.css';
-import { Link } from 'react-scroll';
 import Button from '../../components/button';
 
 function About() {

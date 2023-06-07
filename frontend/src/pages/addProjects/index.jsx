@@ -6,7 +6,7 @@ import Card from '../../components/card';
 
 function AddProjects() {
   const [projects, setProjects] = useState([]);
-  const [getProjects, setgetProjects] = useState(false);
+  const [getProjects, setGetProjects] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function AddProjects() {
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
 
-    setgetProjects(true);
+    setGetProjects(true);
   }
 
   function sendData() {
@@ -42,25 +42,35 @@ function AddProjects() {
     formData.append('link', document.getElementById('link').value);
 
     if (selectedProject) {
-      formData.append('id', selectedProject.id);
-    }
-
-    const form = document.querySelector('form');
-
-    fetch('http://localhost:3001/api/projects', {
-      method: 'POST',
-      body: formData,
-    })
-      .then(response => {
-        console.log(response);
-        alert('Projet créé !');
-        form.reset();
-        setSelectedProject(null);
-        closeModal();
+      // Utiliser la méthode PUT pour mettre à jour un projet existant
+      fetch(`http://localhost:3001/api/projects/${selectedProject.id}`, {
+        method: 'PUT',
+        body: formData,
       })
-      .catch(error => {
-        console.log(error);
-      });
+        .then(response => {
+          console.log(response);
+          alert('Projet mis à jour !');
+          setSelectedProject(null);
+          closeModal();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      // Utiliser la méthode POST pour créer un nouveau projet
+      fetch('http://localhost:3001/api/projects', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(response => {
+          console.log(response);
+          alert('Projet créé !');
+          closeModal();
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 
   const deleteProject = (id) => {
@@ -128,17 +138,16 @@ function AddProjects() {
             Ajouter un projet
           </button>
           <Modal
-  contentModal={
-    <FormWorks
-      classForm={'form-add-word'}
-      functionForm={sendData}
-      selectedProject={selectedProject}
-      selectedImageURL={selectedProject ? selectedProject.imgUrl : null}
-    />
-  }
-  onClose={closeModal}
-  onResetSelectedProject={resetSelectedProject}
-/>
+            contentModal={
+              <FormWorks
+                classForm={'form-add-word'}
+                functionForm={sendData}
+                selectedProject={selectedProject}
+              />
+            }
+            onClose={closeModal}
+            onResetSelectedProject={resetSelectedProject}
+          />
 
           <div className='gallery-projects'>{displayProjects()}</div>
         </div>
