@@ -1,8 +1,16 @@
 import './index.css';
 import FormWorks from '../../components/formWorks';
+import Modal from '../../components/modal';
 
 function AddProjects() {
-  function handleSubmit() {
+  function openModal() {
+    const modal = document.querySelector('#modal');
+    modal.style.display = null;
+    modal.removeAttribute('aria-hidden');
+    modal.setAttribute('aria-modal', 'true');
+  }
+
+  function sendData() {
     const formData = new FormData();
     formData.append('imgUrl', document.getElementById('imgUrl').files[0]);
     formData.append('title', document.getElementById('title').value);
@@ -33,9 +41,9 @@ function AddProjects() {
           <h2 className='projects-title'>
             <span className='projects-title-first'>Ajouter un projet</span>
           </h2>
-          <FormWorks
-            classForm={'form-add-word'}
-            functionForm={handleSubmit}
+          <button className='open-modal' onClick={openModal}>Ajouter un projet</button>
+          <Modal
+            contentModal={<FormWorks classForm={'form-add-word'} functionForm={sendData} />}
           />
         </div>
       </section>

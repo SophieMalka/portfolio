@@ -1,0 +1,35 @@
+#modal {
+    display: flex;
+    position: fixed;
+	align-items: center;
+	justify-content: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-wrapper-add {
+	overflow: auto;
+	width: 630px;
+	max-width: calc(100vw - 100px);
+	max-height: calc(105vh - 100px);
+	background-color: #FFFFFF;
+	border-radius: 10px;
+	display: flex;
+	align-content: center;
+	flex-direction: column;
+	padding-bottom: 30px;
+}
+
+.modal-nav {
+	display: flex;
+	justify-content: flex-end;
+	margin: 32px 32px 0px 32px;
+}
+
+.close-modal-button {
+	font-size: 12px;
+	cursor: pointer;
+}
