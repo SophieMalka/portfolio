@@ -1,5 +1,5 @@
 import './index.css';
-import Form from '../../components/form';
+import FormWorks from '../../components/formWorks';
 
 function AddProjects() {
   function handleSubmit() {
@@ -33,7 +33,7 @@ function AddProjects() {
           <h2 className='projects-title'>
             <span className='projects-title-first'>Ajouter un projet</span>
           </h2>
-          <Form
+          <FormWorks
             classForm={'form-add-word'}
             functionForm={handleSubmit}
           />
