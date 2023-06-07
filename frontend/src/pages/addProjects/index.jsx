@@ -59,6 +59,7 @@ function AddProjects() {
         key={project.id}
         image={project.imgUrl}
         title={project.title}
+        description={project.description}
         page="admin"
       />
     ));

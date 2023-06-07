@@ -38,3 +38,12 @@
     transform: translateX(-50%);
     border-radius: 5px;
 }
+
+.gallery-projects {
+    margin: 40px 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    justify-content: space-around;
+}
