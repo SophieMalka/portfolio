@@ -15,7 +15,7 @@
 	width: 630px;
 	max-width: calc(100vw - 100px);
 	max-height: calc(105vh - 100px);
-	background-color: #FFFFFF;
+	background-color: #ebe0ff;
 	border-radius: 10px;
 	display: flex;
 	align-content: center;
@@ -29,7 +29,22 @@
 	margin: 32px 32px 0px 32px;
 }
 
-.close-modal-button {
-	font-size: 12px;
-	cursor: pointer;
+.modal-close-button {
+font-size: 12px;
+	width: fit-content;
+  color: #591BC5;
+  font-size: 17px;
+  border:1px solid #EFEEF5;
+  font-weight: 500;
+  background: #EFEEF5;
+  border-radius: 20px;
+  padding: 3px 5px; 
+  cursor:pointer;
+  transition: .3s;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-close-button:hover {
+	border-radius: 0;
 }
