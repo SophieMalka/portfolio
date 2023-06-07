@@ -8,7 +8,7 @@ function AddProjects() {
 
   function openModal() {
     const modal = document.querySelector('#modal');
-    modal.style.display = null;
+    modal.style.display = 'flex';
     modal.removeAttribute('aria-hidden');
     modal.setAttribute('aria-modal', 'true');
   }
