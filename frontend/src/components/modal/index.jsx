@@ -9,8 +9,8 @@ function Modal({ contentModal }) {
     };
 
     return (
-        <aside id="modal" aria-hidden="true" role="dialog" >
-            <div class="modal-wrapper modal-wrapper-add js-stop-modal">
+        <aside id="modal" aria-hidden="true" role="dialog">
+            <div class="modal-wrapper modal-wrapper-add">
                 <div className='modal-nav'>
                     <button className='modal-close-button' onClick={closeModal}><i className='fa-solid fa-xmark'></i></button>
                 </div>
