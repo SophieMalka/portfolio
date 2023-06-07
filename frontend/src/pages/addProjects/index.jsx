@@ -7,6 +7,7 @@ import Card from '../../components/card';
 function AddProjects() {
   const [projects, setProjects] = useState([]);
   const [updateProjects, setUpdateProjects] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
     fetch('http://localhost:3001/api/projects')
@@ -16,6 +17,8 @@ function AddProjects() {
   }, [updateProjects]);
 
   function openModal() {
+    const form = document.querySelector('form');
+    form.reset();
     const modal = document.querySelector('#modal');
     modal.style.display = 'flex';
     modal.removeAttribute('aria-hidden');
@@ -38,6 +41,10 @@ function AddProjects() {
     formData.append('description', document.getElementById('description').value);
     formData.append('link', document.getElementById('link').value);
 
+    if (selectedProject) {
+      formData.append('id', selectedProject.id);
+    }
+
     const form = document.querySelector('form');
 
     fetch('http://localhost:3001/api/projects', {
@@ -45,10 +52,10 @@ function AddProjects() {
       body: formData,
     })
       .then(response => {
-        // Traitement des données après l'envoi réussi
         console.log(response);
         alert('Projet créé !');
         form.reset();
+        setSelectedProject(null);
         closeModal();
       })
       .catch(error => {
@@ -74,6 +81,23 @@ function AddProjects() {
       });
   };
 
+  const updateProject = (id) => {
+    fetch(`http://localhost:3001/api/projects/${id}`)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Error fetching project data');
+      })
+      .then(data => {
+        setSelectedProject(data);
+        openModal();
+      })
+      .catch(error => {
+        alert(error);
+      });
+  };
+
   const displayProjects = () => {
     return projects.map(project => (
       <Card
@@ -82,11 +106,16 @@ function AddProjects() {
         image={project.imgUrl}
         title={project.title}
         description={project.description}
+        updateFunction={() => updateProject(project.id)}
         deleteFunction={() => deleteProject(project.id)}
         page="admin"
       />
     ));
   };
+
+  function resetSelectedProject() {
+    setSelectedProject(null);
+  }
 
   if (sessionStorage.getItem('token')) {
     return (
@@ -99,8 +128,15 @@ function AddProjects() {
             Ajouter un projet
           </button>
           <Modal
-            contentModal={<FormWorks classForm={'form-add-word'} functionForm={sendData} />}
+            contentModal={
+              <FormWorks
+                classForm={'form-add-word'}
+                functionForm={sendData}
+                selectedProject={selectedProject}
+              />
+            }
             onClose={closeModal}
+            onResetSelectedProject={resetSelectedProject}
           />
           <div className='gallery-projects'>{displayProjects()}</div>
         </div>
