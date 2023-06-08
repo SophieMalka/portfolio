@@ -48,7 +48,8 @@
     justify-content: space-around;
 }
 
-.open-modal {
+.open-modal,
+.button-logout {
     width: fit-content;
   color: #591BC5;
   font-size: 17px;
@@ -63,6 +64,14 @@
   justify-content: center;
 }
 
-.open-modal:hover {
+.open-modal:hover,
+.button-logout:hover {
     border-radius: 0;
+}
+
+.button-logout {
+    position: absolute;
+    top: 7.5%;
+    left: 80%;
+    
 }

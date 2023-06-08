@@ -126,10 +126,17 @@ function AddProjects() {
     setSelectedProject(null);
   }
 
+  const logout = (event) => {
+    event.preventDefault();
+    sessionStorage.clear();
+    window.location.replace('/admin2103/');
+  };
+
   if (sessionStorage.getItem('token')) {
     return (
       <section id='projects' className='projects'>
         <div className='projects-container'>
+          <button className='button-logout' onClick={logout}><i class="fa-solid fa-power-off"></i></button>
           <h2 className='projects-title'>
             <span className='projects-title-first'>Gestion du portfolio</span>
           </h2>
