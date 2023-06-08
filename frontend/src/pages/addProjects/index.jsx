@@ -33,18 +33,18 @@ function AddProjects() {
     setGetProjects(true);
   }
 
-  function sendData() {
-    const formData = new FormData();
-    formData.append('imgUrl', document.getElementById('imgUrl').files[0]);
-    formData.append('title', document.getElementById('title').value);
-    formData.append('description', document.getElementById('description').value);
-    formData.append('link', document.getElementById('link').value);
+  function sendData(formData) {
+    const formDataToSend = new FormData();
+    formDataToSend.append('imgUrl', formData.imgUrl);
+    formDataToSend.append('title', formData.title);
+    formDataToSend.append('description', formData.description);
+    formDataToSend.append('link', formData.link);
 
     if (selectedProject) {
       // Utiliser la méthode PUT pour mettre à jour un projet existant
       fetch(`http://localhost:3001/api/projects/${selectedProject.id}`, {
         method: 'PUT',
-        body: formData,
+        body: formDataToSend,
       })
         .then(response => {
           console.log(response);
@@ -59,7 +59,7 @@ function AddProjects() {
       // Utiliser la méthode POST pour créer un nouveau projet
       fetch('http://localhost:3001/api/projects', {
         method: 'POST',
-        body: formData,
+        body: formDataToSend,
       })
         .then(response => {
           console.log(response);

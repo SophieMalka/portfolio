@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './index.css';
 
 function FormWorks({ classForm, functionForm, selectedProject }) {
-  const [selectedImageURL, setSelectedImageURL] = useState(null);
   const [formData, setFormData] = useState({
     imgUrl: '',
     title: '',
     description: '',
     link: ''
   });
+  const [selectedImageURL, setSelectedImageURL] = useState('');
 
   useEffect(() => {
     if (selectedProject) {
@@ -26,18 +26,21 @@ function FormWorks({ classForm, functionForm, selectedProject }) {
       description: '',
       link: ''
     });
-    setSelectedImageURL(null);
+    setSelectedImageURL('');
   }
 
   function handleImageChange(event) {
     const file = event.target.files[0];
     if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setSelectedImageURL(imageURL);
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        imgUrl: file
-      }));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          imgUrl: file
+        }));
+        setSelectedImageURL(reader.result);
+      };
+      reader.readAsDataURL(file);
     }
   }
 
