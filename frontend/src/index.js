@@ -5,6 +5,7 @@ import Admin from './pages/admin';
 import Landing from './pages/landing';
 import './index.css';
 import AddProjects from './pages/addProjects';
+import Error from './pages/error';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,6 +16,8 @@ root.render(
         <Route path='/' element={<Landing />} />
         <Route path='/admin2103' element={<Admin />} />
         <Route path='/admin2103/projects' element={<AddProjects />} />
+        <Route path='/admin2103/unauthorized' element={<Error />} />
+        <Route path='*' element={<Error />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

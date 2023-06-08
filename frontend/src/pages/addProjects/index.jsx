@@ -3,6 +3,7 @@ import './index.css';
 import FormWorks from '../../components/formWorks';
 import Modal from '../../components/modal';
 import Card from '../../components/card';
+import Error from '../error';
 
 function AddProjects() {
   const [projects, setProjects] = useState([]);
@@ -160,7 +161,9 @@ function AddProjects() {
       </section>
     );
   } else {
-    return <p>non autorisé</p>;
+    return (
+      <Error page='unauthorized'/>
+    )
   }
 }
 
