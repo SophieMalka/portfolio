@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+//import React, { useState } from 'react';
 import './index.css';
 import Background from '../../components/background';
 
 function Admin() {
-  const [signupData, setSignupData] = useState({
-    email: '',
-    password: '',
-  });
+  // const [signupData, setSignupData] = useState({
+  //   email: '',
+  //   password: '',
+  // });
 
-  const [signupError, setSignupError] = useState('');
+  // const [signupError, setSignupError] = useState('');
 
   const login = async (event) => {
     event.preventDefault();
@@ -43,33 +43,33 @@ function Admin() {
     }
   };
 
-  const signup = async (event) => {
-    event.preventDefault();
+  // const signup = async (event) => {
+  //   event.preventDefault();
 
-    const loginForm = document.querySelector('form');
-    const formData = new FormData(loginForm);
+  //   const loginForm = document.querySelector('form');
+  //   const formData = new FormData(loginForm);
 
-    try {
-      const response = await fetch("http://localhost:3001/api/auth/signup", {
-        method: "POST",
-        body: JSON.stringify(Object.fromEntries(formData)),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-        }
-      });
+  //   try {
+  //     const response = await fetch("http://localhost:3001/api/auth/signup", {
+  //       method: "POST",
+  //       body: JSON.stringify(Object.fromEntries(formData)),
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+  //       }
+  //     });
 
-      if (response.status === 201) {
-        alert('Inscription réussie !');
-        setSignupData({ email: '', password: '' });
-      } else {
-        const errorData = await response.json();
-        setSignupError(errorData.message || "Une erreur s'est produite lors de l'inscription");
-      }
-    } catch (error) {
-      console.error("Une erreur s'est produite lors de l'inscription :", error);
-    }
-  };
+  //     if (response.status === 201) {
+  //       alert('Inscription réussie !');
+  //       setSignupData({ email: '', password: '' });
+  //     } else {
+  //       const errorData = await response.json();
+  //       setSignupError(errorData.message || "Une erreur s'est produite lors de l'inscription");
+  //     }
+  //   } catch (error) {
+  //     console.error("Une erreur s'est produite lors de l'inscription :", error);
+  //   }
+  // };
 
   return (
     <section id="admin">
@@ -85,12 +85,12 @@ function Admin() {
             <button className='button-form-connect' type="submit" onClick={login}>
               Se connecter
             </button>
-            <button className='button-form-signup' type='submit' onClick={signup}>
+            {/* <button className='button-form-signup' type='submit' onClick={signup}>
               S'inscrire
-            </button>
+            </button> */}
           </div>
         </form>
-        {signupError && <p className="signup-error">{signupError}</p>}
+        {/* {signupError && <p className="signup-error">{signupError}</p>} */}
       </div>
     </section>
   );
