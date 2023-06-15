@@ -30,10 +30,6 @@ jobs:
       run: npm install
       working-directory: ./backend
 
-    - name: Build Backend
-      run: npm run build
-      working-directory: ./backend
-
     - name: Deploy Frontend to FTP Server
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
       with:
@@ -49,5 +45,5 @@ jobs:
         server: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
-        local-dir: ./backend/dist/
+        local-dir: ./backend/
         remote-dir: /public_html
