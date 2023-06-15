@@ -33,4 +33,4 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         local-dir: ./frontend/build/
-        remote-dir: /public_html/  # Spécifiez le chemin de destination sur votre serveur
+        remote-dir: /home/mvbmnxxe/public_html/
