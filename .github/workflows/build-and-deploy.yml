@@ -23,7 +23,7 @@ jobs:
 
     - name: Build React App
       run: npm run build
-      working-directory: /frontend/
+      working-directory: /frontend
 
     - name: Deploy to FTP Server
       uses: SamKirkland/FTP-Deploy-Action@4.1.0
