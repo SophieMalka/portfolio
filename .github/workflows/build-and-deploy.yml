@@ -34,12 +34,3 @@ jobs:
         password: ${{ secrets.SERVER_PASSWORD }}
         local-dir: ./frontend/build/
         remote-dir: /public_html
-
-    - name: Deploy to FTP Server
-      uses: SamKirkland/FTP-Deploy-Action@4.1.0
-      with:
-        server: ${{ secrets.SERVER_HOST }}
-        username: ${{ secrets.SERVER_USERNAME }}
-        password: ${{ secrets.SERVER_PASSWORD }}
-        local-dir: ./frontend/build/
-        remote-dir: /public_html
