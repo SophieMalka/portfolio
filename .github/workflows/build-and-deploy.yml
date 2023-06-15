@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
@@ -18,26 +18,17 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install backend dependencies
-        run: npm install --prefix backend
-
-      - name: Install frontend dependencies
-        run: npm install --prefix frontend
+      - name: Install dependencies
+        run: npm install
 
       - name: Build frontend
-        run: npm run build --prefix frontend
-
-      - name: Build backend
-        run: npm run build --prefix backend
+        run: npm run build-frontend
 
       - name: Deploy to server
-        uses: easingthemes/ssh-deploy@v2
+        uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
-          server: ${{ secrets.SERVER_HOST }}
-          port: ${{ secrets.SERVER_PORT }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          local_path: |
-            backend/dist
-            frontend/build
-          remote_path: /public_html/
+          ftp-server: ${{ secrets.SERVER_HOST }}
+          ftp-username: ${{ secrets.SERVER_USERNAME }}
+          ftp-password: ${{ secrets.SERVER_PASSWORD }}
+          local-dir: /frontend/build/
+          server-dir: /public_html/
