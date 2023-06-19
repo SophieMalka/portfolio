@@ -11,7 +11,7 @@ function AddProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:3001/api/projects')
+    fetch('/api/projects')
       .then(response => response.json())
       .then(data => setProjects(data))
       .catch(error => console.error('Error fetching projects:', error));
@@ -43,7 +43,7 @@ function AddProjects() {
 
     if (selectedProject) {
       // Utiliser la méthode PUT pour mettre à jour un projet existant
-      fetch(`http://localhost:3001/api/projects/${selectedProject.id}`, {
+      fetch(`/api/projects/${selectedProject.id}`, {
         method: 'PUT',
         body: formDataToSend,
       })
@@ -58,7 +58,7 @@ function AddProjects() {
         });
     } else {
       // Utiliser la méthode POST pour créer un nouveau projet
-      fetch('http://localhost:3001/api/projects', {
+      fetch('/api/projects', {
         method: 'POST',
         body: formDataToSend,
       })
@@ -74,7 +74,7 @@ function AddProjects() {
   }
 
   const deleteProject = (id) => {
-    fetch(`http://localhost:3001/api/projects/${id}`, {
+    fetch(`/api/projects/${id}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json',
@@ -92,7 +92,7 @@ function AddProjects() {
   };
 
   const getProject = (id) => {
-    fetch(`http://localhost:3001/api/projects/${id}`)
+    fetch(`/api/projects/${id}`)
       .then(response => {
         if (response.ok) {
           return response.json();

@@ -17,7 +17,7 @@ function Admin() {
     const formData = new FormData(loginForm);
 
     try {
-      const response = await fetch("https://www.sophiemalka.fr/api/auth/login", {
+      const response = await fetch("/api/auth/login", {
         method: "POST",
         body: JSON.stringify(Object.fromEntries(formData)),
         headers: {
@@ -50,7 +50,7 @@ function Admin() {
   //   const formData = new FormData(loginForm);
 
   //   try {
-  //     const response = await fetch("http://localhost:3001/api/auth/signup", {
+  //     const response = await fetch("/api/auth/signup", {
   //       method: "POST",
   //       body: JSON.stringify(Object.fromEntries(formData)),
   //       headers: {
