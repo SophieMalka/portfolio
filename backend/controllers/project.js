@@ -19,7 +19,7 @@ exports.getAllProjects = (req, res, next) => {
 
 exports.createProject = (req, res, next) => {
   const { title, description, link } = req.body;
-  const imgUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+  const imgUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename.split('.')[0]}optimized.webp`;
 
   db.run('INSERT INTO projects (imgUrl, title, description, link) VALUES (?, ?, ?, ?)',
     [imgUrl, title, description, link],
@@ -89,7 +89,7 @@ exports.updateProject = (req, res, next) => {
 
   if (req.file) {
     imgData = fs.readFileSync(req.file.path);
-    imgUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+    imgUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename.split('.')[0]}optimized.webp`;
   }
 
   // Vérifier si des champs ont été modifiés
