@@ -34,3 +34,23 @@
     line-height: 1.6;
     color: #FFF;
 }
+
+@media (max-width: 700px) {
+    .home-title {
+        font-size: 1.7rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #FFF;
+        font-weight: 800;
+        text-align: center;
+        margin: 15px;
+    }
+
+    .home-info {
+        font-size: 1rem;
+        text-align: center;
+        width: 100%;
+        line-height: 1.6;
+        color: #FFF;
+    }
+}
