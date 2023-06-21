@@ -25,7 +25,7 @@ img.mongodb {
     background-size: 100%;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 780px) {
     .stack {
         flex-wrap: wrap;
         row-gap: 10px;
