@@ -60,3 +60,16 @@ a:visited {
     font-family: inherit;
 }
 
+@media (max-width: 780px) {
+    header {
+        justify-content: space-evenly;
+    }
+
+    .header-left {
+        margin-left: 0;
+    }
+
+    .header-right {
+        margin-right: 0;
+    }
+}
