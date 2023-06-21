@@ -92,3 +92,44 @@
     color: #666;
     font-style: italic;
 }
+
+@media (max-width: 780px) {
+    .about-title-first {
+        font-size: 1.7rem;
+        margin-bottom: 2rem;
+    }
+
+    .about-title-first::after {
+        height: 3px;
+        width: 2rem;
+        top: calc(100% + 1rem);
+    }
+
+    .about-title-sec {
+        font-size: 1rem;
+    }
+
+    .about-content {
+        display: flex;
+        flex-direction: column;
+        row-gap: 12px;
+    }
+
+    .about-content-me-title,
+    .about-content-exp-title {
+        font-size: 1.3rem;
+    }
+
+    .about-content-me p, 
+    .about-content-exp li {
+        font-size: 1rem;
+    }
+
+    .about-content-exp h4 {
+        font-size: 1.2rem;
+    }
+
+    .exp-location {
+        font-size: 1.1rem;
+    }
+}
