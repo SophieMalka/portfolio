@@ -24,8 +24,8 @@ exports.sendEmail = (req, res) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'contact@sophiemalka.fr',
-      pass: 'Wl^rC00Lx(8C!U7#D7',
+      user: process.env.MAIL,
+      pass: process.env.MP_MAIL,
     },
   });
 
