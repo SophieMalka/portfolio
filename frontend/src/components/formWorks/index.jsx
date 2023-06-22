@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import './index.css';
 
 function FormWorks({ classForm, functionForm, selectedProject }) {
@@ -44,8 +46,8 @@ function FormWorks({ classForm, functionForm, selectedProject }) {
     }
   }
 
-  function handleInputChange(event) {
-    const { name, value } = event.target;
+  function handleInputChange(event, name) {
+    const { value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value
@@ -68,23 +70,21 @@ function FormWorks({ classForm, functionForm, selectedProject }) {
           name='title'
           id='title'
           value={formData.title}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, 'title')}
         ></input>
         <label htmlFor='description'>Description</label>
-        <textarea
-          type='text'
-          name='description'
-          id='description'
+        <ReactQuill
+          className='react-quill-editor'
           value={formData.description}
-          onChange={handleInputChange}
-        ></textarea>
+          onChange={(value) => handleInputChange({ target: { value } }, 'description')}
+        />
         <label htmlFor='link'>Lien</label>
         <input
           type='text'
           name='link'
           id='link'
           value={formData.link}
-          onChange={handleInputChange}
+          onChange={(event) => handleInputChange(event, 'link')}
         ></input>
         <button type='button' onClick={sendData}>
           Envoyer

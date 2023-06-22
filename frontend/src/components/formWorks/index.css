@@ -10,8 +10,7 @@
   color: #666;
 }
 
-.form-add-work input,
-.form-add-work textarea {
+.form-add-work input {
   width: 60%;
   margin-top: 20px;
   border-radius: 20px;
@@ -19,6 +18,37 @@
   border: 1px solid #EFEEF5;
   font-size: 1.1rem;
   color: #666;
+}
+
+.react-quill-editor {
+  width: 60%;
+  margin-top: 20px;
+  border-radius: 20px;
+  padding: 15px 30px;
+  border: 1px solid #EFEEF5;
+  font-size: 1.1rem;
+  color: #666;
+  background-color: #FFF;
+}
+
+.react-quill-editor .ql-container {
+  height: auto;
+  min-height: 200px; /* Ajustez la hauteur minimale selon vos besoins */
+  background-color: #fff;
+  border: none;
+}
+
+.react-quill-editor .ql-editor {
+  padding: 0; /* Supprimez le padding supplémentaire */
+  background-color: #fff;
+}
+
+.react-quill-editor .ql-toolbar {
+  border: none;
+}
+
+.react-quill-editor .ql-formats button {
+  margin-top: 0;
 }
 
 .form-add-work button {
