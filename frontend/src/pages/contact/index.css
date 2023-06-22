@@ -5,7 +5,7 @@
 
 .contact-container {
     position: relative;
-    padding: 8em;
+    padding: 8em 0;
     max-width: 90rem;
     display: flex;
     flex-direction: column;
@@ -94,4 +94,26 @@
 .contact-form input:focus-visible,
 .contact-form button:focus-visible {
   outline: 1px solid #591BC5;
+}
+
+@media (max-width: 780px) {
+    .contact-title-first {
+        font-size: 1.7rem;
+        margin-bottom: 2rem;
+    }
+
+    .contact-title-first::after {
+        height: 3px;
+        width: 2rem;
+        top: calc(100% + 1rem);
+    }
+
+    .contact-content {
+        width: 80vw;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 80%;
+    }
 }
