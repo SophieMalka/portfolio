@@ -71,13 +71,13 @@ function FormWorks({ classForm, functionForm, selectedProject }) {
           onChange={handleInputChange}
         ></input>
         <label htmlFor='description'>Description</label>
-        <input
+        <textarea
           type='text'
           name='description'
           id='description'
           value={formData.description}
           onChange={handleInputChange}
-        ></input>
+        ></textarea>
         <label htmlFor='link'>Lien</label>
         <input
           type='text'
