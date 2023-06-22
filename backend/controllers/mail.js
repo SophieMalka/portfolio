@@ -3,6 +3,7 @@ const sqlite3 = require('sqlite3');
 
 exports.sendEmail = (req, res) => {
   const { name, email, tel, object, message } = req.body;
+  console.log(req.body);
 
   const db = new sqlite3.Database('database.sqlite');
   db.serialize(() => {
@@ -18,17 +19,19 @@ exports.sendEmail = (req, res) => {
   });
 
   // Configuration de Nodemailer pour envoyer le mail
-  const transporter = nodemailer.createTransport("SMTP", {
-    service: 'hotmail',
+  const transporter = nodemailer.createTransport({
+    host: 'node197-eu.n0c.com',
+    port: 465,
+    secure: true,
     auth: {
-      user: process.env.MAIL,
-      pass: process.env.MP_MAIL,
+      user: 'contact@sophiemalka.fr',
+      pass: 'Wl^rC00Lx(8C!U7#D7',
     },
   });
 
   const mailOptions = {
     from: email,
-    to: 's.malka@live.fr',
+    to: 'contact@sophiemalka.fr',
     subject: object,
     text: `Nom et prénom : ${name}\nTéléphone : ${tel}\n\n${message}`,
   };

@@ -1,3 +1,4 @@
+import React from 'react';
 import './index.css';
 import Background from '../../components/background';
 
@@ -5,11 +6,20 @@ function Contact() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
+    const formData = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+      tel: event.target.tel.value,
+      object: event.target.object.value,
+      message: event.target.message.value,
+    };
 
     fetch('/api/mail/send-email', {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
     })
       .then((response) => response.text())
       .then((data) => {
@@ -38,7 +48,7 @@ function Contact() {
             <label htmlFor='tel'>Téléphone</label>
             <input className='input-form-contact' type='tel' id='tel' name='tel' />
             <label htmlFor='object'>Objet</label>
-            <input className='imput-form-contact' type='text' id='object' name='object' required />
+            <input className='input-form-contact' type='text' id='object' name='object' required />
             <label htmlFor='message'>Message</label>
             <textarea className='textarea-form-contact' id='message' name='message' required />
             <button type='submit'>Envoyer</button>
