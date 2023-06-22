@@ -15,7 +15,7 @@
   padding: 0;
 }
 
-.menu-item {
+.menu-item a {
   margin: 0 1rem;
   overflow: hidden;
   text-decoration: none;
@@ -26,7 +26,10 @@
   cursor: pointer;
 }
 
-
+.menu-item a:hover {
+    transition: color .3s;
+    color: #FC415A;
+}
 
 .menu-button-container {
   display: none;

@@ -10,7 +10,7 @@ function Header() {
                     <div className='container-logo'>
                         <Link to='/'><img src={me} alt='logo' className='logo-img' /></Link>
                     </div>
-                    <Link to='/'><span className='logo-title'>Sophie Malka</span></Link>
+                    <Link to='/' className='logo-title'>Sophie Malka</Link>
             </section>
             <section className='header-right'>
                 <Nav />

@@ -36,19 +36,11 @@ header {
     font-size: 18px;
     text-transform: uppercase;
     font-weight: 700;
+    color: #333;
+    text-decoration: none;
 }
 
 .logo-title:hover {
-    transition: color .3s;
-    color: #FC415A;
-}
-
-a {
-    text-decoration: none;
-    color: #333;
-}
-
-a:hover {
     transition: color .3s;
     color: #FC415A;
 }
