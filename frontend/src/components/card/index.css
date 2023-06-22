@@ -5,17 +5,17 @@
     padding: 20px;
     border-radius: 20px;
     width: 29%;
-    align-items: center;
 }
 
 .card-project img {
     width: 90%;
     height: auto;
     border: 1px solid #591BC5;
+    margin: 0 auto;
 }
 
-.card-project p {
-    text-align: center;
+.card-project h3 {
+  text-align: center;
 }
 
 .button-card,
@@ -75,20 +75,19 @@
 .desc-project {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-    height: 100%;
-    justify-content: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.desc-project h3 {
+  text-align: center;
 }
 
 .content-card-project img {
     width: 50%;
     height: auto;
     border: 1px solid #591BC5;
-}
-
-.content-card-project p {
-  text-align: center;
 }
 
 @media (max-width: 780px) {

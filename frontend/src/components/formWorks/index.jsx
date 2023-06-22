@@ -58,6 +58,13 @@ function FormWorks({ classForm, functionForm, selectedProject }) {
     functionForm(formData);
   }
 
+  const toolbarOptions = [
+    ['bold', 'italic', 'underline', 'strike'], // Les options de mise en forme du texte
+    ['link'], // Option pour ajouter un lien
+    [{ 'align': [] }], // Options d'alignement du texte
+    [{ 'list': 'ordered'}, { 'list': 'bullet' }] // Options de liste ordonnée et de liste à puces
+  ];
+
   return (
     <section className={classForm}>
       <form className='form-add-work'>
@@ -75,8 +82,12 @@ function FormWorks({ classForm, functionForm, selectedProject }) {
         <label htmlFor='description'>Description</label>
         <ReactQuill
           className='react-quill-editor'
+          name='description'
           value={formData.description}
           onChange={(value) => handleInputChange({ target: { value } }, 'description')}
+          modules={{
+            toolbar: toolbarOptions // Spécifiez les options de la barre d'outils
+          }}
         />
         <label htmlFor='link'>Lien</label>
         <input
