@@ -1,22 +1,8 @@
 const nodemailer = require('nodemailer');
-const sqlite3 = require('sqlite3');
 
 exports.sendEmail = (req, res) => {
   const { name, email, tel, object, message } = req.body;
   console.log(req.body);
-
-  const db = new sqlite3.Database('database.sqlite');
-  db.serialize(() => {
-    db.run(
-      'CREATE TABLE IF NOT EXISTS contacts (name TEXT, email TEXT, tel TEXT, object TEXT, message TEXT)'
-    );
-
-    const stmt = db.prepare(
-      'INSERT INTO contacts (name, email, tel, object, message) VALUES (?, ?, ?, ?, ?)'
-    );
-    stmt.run(name, email, tel, object, message);
-    stmt.finalize();
-  });
 
   // Configuration de Nodemailer pour envoyer le mail
   const transporter = nodemailer.createTransport({
