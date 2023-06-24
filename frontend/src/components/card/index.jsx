@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 import { Link } from 'react-router-dom';
 
-function Card({ projectId, image, title, description, link, updateFunction, deleteFunction, page }) {
+function Card({ projectId, imgUrl, title, description, link, updateFunction, deleteFunction, page }) {
   const renderDescription = () => {
     return { __html: description };
   };
@@ -11,7 +11,7 @@ function Card({ projectId, image, title, description, link, updateFunction, dele
     return (
       <div className='card-project-admin'>
         <div className='content-card-project'>
-          <img src={image} alt={title} />
+          <img src={imgUrl} alt={title} />
           <div className='desc-project'>
             <h3>{title}</h3>
             <p dangerouslySetInnerHTML={renderDescription()}></p>
@@ -26,7 +26,7 @@ function Card({ projectId, image, title, description, link, updateFunction, dele
   } else if (page === 'visit') {
     return (
       <div className='card-project'>
-        <img src={image} alt={title} />
+        <img src={imgUrl} alt={title} />
         <h3>{title}</h3>
         <p dangerouslySetInnerHTML={renderDescription()}></p>
         <Link to={link} className='button-card'>Lien du projet</Link>

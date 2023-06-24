@@ -1,6 +1,8 @@
 const dbModels = require("../models");
 console.log(dbModels);
-const User = dbModels.User;
+const User = dbModels.users;
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 /**
  * C'est cette méthode que j'ai revue. Utilisation de findOne avec un where en param. C'est une promesse, donc tu peux reprendre ensuite (then) le code que tu as écrit pour tes controllers
@@ -26,7 +28,7 @@ exports.login = (req, res, next) => {
               res.statut(401).send("Check your password.");
             } else {
               console.log(`Connexion réussie : ${user.email} `);
-              const token = jwt.sign({ userId: row.id }, process.env.TOKEN_SECRET, { expiresIn: "4h" });
+              const token = jwt.sign({ userId: user.id }, process.env.TOKEN_SECRET, { expiresIn: "4h" });
               res.status(200).json({ token });
             }
           })

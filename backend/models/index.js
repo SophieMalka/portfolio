@@ -56,7 +56,7 @@ db.Sequelize = Sequelize;
  *BLOC DE génération auto d'une table SQL pour un Model en particulier
  */
 const sequelizeOptions = { logging: console.log };
-const dbModel = require("./user")(sequelize, Sequelize.DataTypes); // on charge le Model pour que Sequelize puisse créer la structure de la table dans la BDD
+const dbModel = require("./users" && "./projects")(sequelize, Sequelize.DataTypes); // on charge le Model pour que Sequelize puisse créer la structure de la table dans la BDD
 if (DB_FORCE_RESTART === "true" && process.env.ENV !== "production") {
   sequelizeOptions.force = false;
 }
