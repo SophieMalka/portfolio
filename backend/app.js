@@ -17,6 +17,4 @@ app.use("/api/auth", userRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/mail", mailRoutes);
 
-
-
 module.exports = app;
