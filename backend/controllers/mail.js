@@ -17,7 +17,7 @@ exports.sendEmail = (req, res) => {
 
   const mailOptions = {
     from: email,
-    to: 'contact@sophiemalka.fr',
+    to: 's.malka@live.fr',
     subject: object,
     text: `Nom et prénom : ${name}\nTéléphone : ${tel}\n\n${message}`,
   };
