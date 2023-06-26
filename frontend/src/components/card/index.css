@@ -22,7 +22,7 @@
 .button-card-update,
 .button-card-delete {
   width: fit-content;
-  margin-top: 50px;
+  margin: auto;
   color: #EFEEF5;
   font-size: 17px;
   border: 1px solid #591BC5;
