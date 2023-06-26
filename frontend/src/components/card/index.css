@@ -90,6 +90,10 @@
     border: 1px solid #591BC5;
 }
 
+.ql-align-center {
+  text-align: center;
+}
+
 @media (max-width: 780px) {
   .card-project {
     width: auto;
