@@ -32,6 +32,7 @@ function AddProjects() {
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
     setGetProjects(true);
+    resetSelectedProject(true);
   }
 
   function sendData(formData) {
@@ -152,8 +153,7 @@ function AddProjects() {
                 selectedProject={selectedProject}
               />
             }
-            onClose={closeModal}
-            onResetSelectedProject={resetSelectedProject}
+            closeModal={closeModal}
           />
 
           <div className='gallery-projects'>{displayProjects()}</div>

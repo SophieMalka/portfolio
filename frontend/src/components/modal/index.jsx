@@ -1,15 +1,7 @@
 import React from 'react';
 import './index.css';
 
-function Modal({ contentModal, onClose, onResetSelectedProject }) {
-  function closeModal() {
-    const modal = document.querySelector('#modal');
-    modal.style.display = 'none';
-    modal.setAttribute('aria-hidden', 'true');
-    modal.removeAttribute('aria-modal');
-    onClose();
-    onResetSelectedProject();
-  }
+function Modal({ contentModal, closeModal }) {
 
   return (
     <aside id="modal" aria-hidden="true" role="dialog">
