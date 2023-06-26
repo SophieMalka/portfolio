@@ -63,7 +63,7 @@
 .social-link,
 .social-link:visited {
     font-size: 2rem;
-    color: #666;
+    color: #404040;
     text-decoration: none;
     transition: all .2s ease-in-out;
 }
@@ -82,7 +82,7 @@
 
 .contact-content p {
     font-size: 1.1rem;
-    color: #666;
+    color: #404040;
     max-width: 60rem;
     line-height: 1.7;
     margin-bottom: 1rem;
@@ -94,7 +94,7 @@
     font-size: 1.8rem;
     margin: auto;
     text-align: center;
-    color: #666;
+    color: #FFF;
 }
 
 .contact-form {
