@@ -1,4 +1,5 @@
-#modal {
+#modal-add,
+#modal-contact {
     display: none;
     position: fixed;
 	align-items: center;
@@ -10,7 +11,8 @@
 	background: rgba(0, 0, 0, 0.8);
 }
 
-.modal-wrapper-add {
+.modal-wrapper-add,
+.modal-wrapper-contact {
 	overflow: auto;
 	width: 630px;
 	max-width: calc(100vw - 100px);
@@ -21,6 +23,12 @@
 	align-content: center;
 	flex-direction: column;
 	padding-bottom: 30px;
+}
+
+.modal-wrapper-contact {
+	max-width: calc(100vw - 100px);
+	max-height: calc(100vh - 141px);
+	transform: translateY(7%);
 }
 
 .modal-nav {

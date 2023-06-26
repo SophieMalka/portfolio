@@ -11,6 +11,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: auto;
 }
 
 .contact-title {
@@ -46,6 +47,54 @@
     background-color: #ffffff86;
     padding: 30px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-reseaux {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.social-link,
+.social-link:visited {
+    font-size: 2rem;
+    color: #666;
+    text-decoration: none;
+    transition: all .2s ease-in-out;
+}
+
+.social-link:hover {
+    transform: scale(1.3);
+}
+
+.fa-linkedin:hover {
+    color: #0E76A8;
+}
+
+.fa-github:hover {
+    color: #000;
+}
+
+.contact-content p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 60rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.contact-content-title {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin: auto;
+    text-align: center;
+    color: #666;
 }
 
 .contact-form {

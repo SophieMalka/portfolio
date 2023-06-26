@@ -18,16 +18,14 @@ function AddProjects() {
   }, [getProjects, selectedProject]);
 
   function openModal() {
-    const form = document.querySelector('form');
-    form.reset();
-    const modal = document.querySelector('#modal');
+    const modal = document.querySelector('#modal-add');
     modal.style.display = 'flex';
     modal.removeAttribute('aria-hidden');
     modal.setAttribute('aria-modal', 'true');
   }
 
   function closeModal() {
-    const modal = document.querySelector('#modal');
+    const modal = document.querySelector('#modal-add');
     modal.style.display = 'none';
     modal.setAttribute('aria-hidden', 'true');
     modal.removeAttribute('aria-modal');
@@ -146,6 +144,7 @@ function AddProjects() {
             Ajouter un projet
           </button>
           <Modal
+            page="admin"
             contentModal={
               <FormWorks
                 classForm={'form-add-word'}
