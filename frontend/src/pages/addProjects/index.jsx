@@ -11,7 +11,7 @@ function AddProjects() {
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-    fetch('/api/projects')
+    fetch('/api/projects/')
       .then(response => response.json())
       .then(data => setProjects(data))
       .catch(error => console.error('Error fetching projects:', error));
@@ -113,7 +113,7 @@ function AddProjects() {
       <Card
         key={project.id}
         projectId={project.id}
-        image={project.imgUrl}
+        imgUrl={project.imgUrl}
         title={project.title}
         description={project.description}
         updateFunction={() => getProject(project.id)}

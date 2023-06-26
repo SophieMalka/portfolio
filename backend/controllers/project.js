@@ -1,87 +1,67 @@
-const sqlite3 = require('sqlite3').verbose();
+const dbModels = require("../models");
+const Project = dbModels.projects;
 const fs = require('fs');
-
-const db = new sqlite3.Database('database.sqlite');
-db.serialize(() => {
-  db.run('CREATE TABLE IF NOT EXISTS projects (id INTEGER PRIMARY KEY AUTOINCREMENT, imgUrl BLOB, title VARCHAR(255), description VARCHAR(255), link VARCHAR(255))');
-});
+const path = require('path');
 
 exports.getAllProjects = (req, res, next) => {
-  db.all('SELECT * FROM projects', (err, rows) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Une erreur est survenue lors de la récupération des projets' });
-    } else {
-      res.json(rows);
-    }
-  });
-};
-
-exports.createProject = (req, res, next) => {
-  const { title, description, link } = req.body;
-  const imgUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename.split('.')[0]}optimized.webp`;
-
-  db.run('INSERT INTO projects (imgUrl, title, description, link) VALUES (?, ?, ?, ?)',
-    [imgUrl, title, description, link],
-    function (err) {
-      if (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Une erreur est survenue lors de la création du projet' });
-      } else {
-        res.json({ message: 'Projet créé avec succès' });
-      }
-    });
+  Project.findAll()
+    .then(projects => {
+      // Map projects to include imgUrl property
+      const mappedProjects = projects.map(project => {
+        return {
+          id: project.id,
+          imgUrl: `${req.protocol}://${req.get("host")}/images/${project.imgUrl}`, // include imgUrl here
+          title: project.title,
+          description: project.description,
+          link: project.link
+        };
+      });
+      res.status(200).json(mappedProjects);
+    })
+    .catch(error => res.status(400).json(error));
 };
 
 exports.getOneProject = (req, res, next) => {
-  const projectId = req.params.id; // Récupère l'identifiant du projet depuis les paramètres de la requête
-
-  db.get('SELECT * FROM projects WHERE id = ?', projectId, (err, row) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Une erreur est survenue lors de la récupération du projet' });
-    } else if (row) {
-      res.json(row);
-    } else {
-      res.status(404).json({ error: 'Projet non trouvé' });
-    }
-  });
-};
-
-exports.deleteProject = (req, res, next) => {
   const projectId = req.params.id;
 
-  db.get('SELECT imgUrl FROM projects WHERE id = ?', projectId, (err, row) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Une erreur est survenue lors de la suppression du projet' });
-    } else if (row) {
-      const imgUrl = row.imgUrl;
-      const fileName = imgUrl.split('/').pop();
-      const filePath = `images/${fileName}`;
+  Project.findByPk(projectId)
+    .then(project => {
+      if (!project) {
+        return res.status(404).json({ message: 'Projet non trouvé' });
+      }
 
-      db.run('DELETE FROM projects WHERE id = ?', projectId, (err) => {
-        if (err) {
-          console.error(err);
-          res.status(500).json({ error: 'Une erreur est survenue lors de la suppression du projet' });
-        } else {
-          fs.unlink(filePath, (err) => {
-            if (err) {
-              console.error(err);
-              res.status(500).json({ error: 'Une erreur est survenue lors de la suppression du fichier' });
-            } else {
-              res.json({ message: 'Projet supprimé avec succès' });
-            }
-          });
-        }
-      });
-    } else {
-      res.status(404).json({ error: 'Projet non trouvé' });
-    }
-  });
+      const mappedProject = {
+        id: project.id,
+        imgUrl: `${req.protocol}://${req.get("host")}/images/${project.imgUrl}`,
+        title: project.title,
+        description: project.description,
+        link: project.link
+      };
+
+      res.status(200).json(mappedProject);
+    })
+    .catch(error => {
+      res.status(400).json({ error });
+    });
 };
 
-exports.updateProject = (req, res, next) => {
+exports.createProject = (req, res, next) => {
+    const projectObject = req.body;
+    const project = new Project({
+        ...projectObject
+    });
+
+    if (req.file) {
+        const imageUrl = `${req.file.filename.split('.')[0]}optimized.webp`;
+        project.imgUrl = imageUrl;
+    }
+
+    project.save()
+        .then(() => { res.status(201).json({ message: 'Projet créé' }); })
+        .catch(error => { res.status(400).json({ error }); });
+};
+
+exports.updateProject = async (req, res, next) => {
   const projectId = req.params.id;
   const { title, description, link } = req.body;
   let imgUrl = null;
@@ -89,80 +69,94 @@ exports.updateProject = (req, res, next) => {
 
   if (req.file) {
     imgData = fs.readFileSync(req.file.path);
-    imgUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename.split('.')[0]}optimized.webp`;
+    imgUrl = `${req.file.filename.split('.')[0]}optimized.webp`;
   }
 
-  // Vérifier si des champs ont été modifiés
-  if (!title && !description && !link && !imgUrl) {
-    res.status(400).json({ error: 'Aucun champ modifié' });
-    return;
-  }
+  try {
+    const project = await Project.findByPk(projectId);
 
-  // Construire la requête SQL de mise à jour en fonction des champs modifiés
-  let updateQuery = 'UPDATE projects SET ';
-  let params = [];
+    if (!project) {
+      res.status(404).json({ error: 'Projet non trouvé' });
+      return;
+    }
 
-  if (title) {
-    updateQuery += 'title = ?, ';
-    params.push(title);
-  }
+    // Mettre à jour les champs du projet si modifiés
+    if (title) {
+      project.title = title;
+    }
 
-  if (description) {
-    updateQuery += 'description = ?, ';
-    params.push(description);
-  }
+    if (description) {
+      project.description = description;
+    }
 
-  if (link) {
-    updateQuery += 'link = ?, ';
-    params.push(link);
-  }
+    if (link) {
+      project.link = link;
+    }
 
-  if (imgUrl) {
-    updateQuery += 'imgUrl = ?, ';
-    params.push(imgUrl);
-  }
+    if (imgUrl) {
+      // Supprimer l'ancienne image du projet
+      const oldImgUrl = project.imgUrl.toString(); // Convertir en chaîne de caractères
+      const oldFileName = path.parse(oldImgUrl).base;
+      const oldFilePath = path.resolve('images', oldFileName);
 
-  // Supprimer la virgule et l'espace finaux de la requête SQL
-  updateQuery = updateQuery.slice(0, -2);
-
-  // Ajouter la clause WHERE pour identifier le projet à mettre à jour
-  updateQuery += ' WHERE id = ?';
-  params.push(projectId);
-
-  db.get('SELECT imgUrl FROM projects WHERE id = ?', projectId, (err, row) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Une erreur est survenue lors de la récupération du projet' });
-    } else if (row) {
-      const oldImgUrl = row.imgUrl;
-
-      db.run(updateQuery, params, function (err) {
+      fs.unlink(oldFilePath, (err) => {
         if (err) {
           console.error(err);
-          res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du projet' });
-        } else if (this.changes === 0) {
-          res.status(404).json({ error: 'Projet non trouvé' });
-        } else {
-          if (imgUrl && oldImgUrl) {
-            // Supprimer l'ancienne image du projet
-            const oldFileName = oldImgUrl.split('/').pop();
-            const oldFilePath = `images/${oldFileName}`;
-
-            fs.unlink(oldFilePath, (err) => {
-              if (err) {
-                console.error(err);
-                res.status(500).json({ error: 'Une erreur est survenue lors de la suppression de l\'ancien fichier' });
-              } else {
-                res.json({ message: 'Projet mis à jour avec succès' });
-              }
-            });
-          } else {
-            res.json({ message: 'Projet mis à jour avec succès' });
-          }
         }
       });
-    } else {
-      res.status(404).json({ error: 'Projet non trouvé' });
+
+      project.imgUrl = imgUrl;
     }
-  });
+
+    await project.save();
+
+    res.json({ message: 'Projet mis à jour avec succès' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour du projet' });
+  }
 };
+
+exports.deleteProject = async (req, res, next) => {
+  const projectId = req.params.id;
+
+  try {
+    const project = await Project.findByPk(projectId);
+
+    if (!project) {
+      res.status(404).json({ error: 'Projet non trouvé' });
+      return;
+    }
+
+    const imgUrl = project.imgUrl.toString(); // Convertir en chaîne de caractères
+    const fileName = path.parse(imgUrl).base;
+    const filePath = path.join('images', fileName);
+
+    await project.destroy();
+
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Une erreur est survenue lors de la suppression du fichier' });
+      } else {
+        // Supprimer également l'image optimisée si elle existe
+        const optimizedFileName = `${path.parse(fileName).name}optimized.webp`;
+        const optimizedFilePath = path.join('images', optimizedFileName);
+
+        fs.unlink(optimizedFilePath, (err) => {
+          if (err) {
+            console.error(err);
+          }
+
+          res.json({ message: 'Projet supprimé avec succès' });
+        });
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Une erreur est survenue lors de la suppression du projet' });
+  }
+};
+
+
+

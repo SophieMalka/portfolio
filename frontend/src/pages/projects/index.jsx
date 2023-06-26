@@ -17,7 +17,7 @@ function Projects() {
       <Card
         page={"visit"}
         key={project.id}
-        image={project.imgUrl}
+        imgUrl={project.imgUrl}
         title={project.title}
         description={project.description}
         link={project.link}
